@@ -2,6 +2,7 @@
 """
 01背包问题最优解
 """
+import math
 
 def __get_dividend(weights):
     """
@@ -37,7 +38,7 @@ def divided(weights, ssd_size):
         return []
     dividend = __get_dividend(weights)
     weights = [weight/dividend for weight in weights]
-    ssd_size = ssd_size/dividend
+    ssd_size = int(math.floor(ssd_size/dividend))
     # 在数组起始位置添加一个0，为了方便判断边界条件。
     weights = [0] + weights
     db_num = len(weights)
@@ -78,7 +79,7 @@ weights = [40,40,40,40,80,80,80,80,120,120,120,120,
         40,40,40,40,80,80,80,80,120,120,120,120]
 
 weights = [weight * 1024 * 1024 * 1024 for weight in weights]
-ssd_size = 480 * 1024 * 1024 * 1024
+ssd_size = 1.2 * 1024 * 1024 * 1024 * 1024
 
 import time
 start = time.time()
@@ -88,7 +89,7 @@ selected = []
 for result in results:
     selected.append(weights[result])
 print "期望最佳：", ssd_size
-print "实际最佳：", sum(selected)
+print "实际最佳：", sum(selected)/1024/1024/1024/1024.0
 print "选中列表：", selected
 print "选中下标：", results
 print "耗时：", end - start
